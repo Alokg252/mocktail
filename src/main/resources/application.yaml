@@ -1,26 +1,26 @@
-# --> server config
+# --> server config:
 server:
   port: 8080
 
 spring:
-# --> application config
+# --> application config:
   application:
     name: mocktail
 
 
-# --> hibernate config
+# --> hibernate config:
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
 
-# --> datasource config
+# --> datasource config:
   datasource:
     url: ${MYSQL_URL}
     username: ${MYSQL_USERNAME}
     password: ${MYSQL_PASSWORD}
 
-# --> mcp server config\
+# --> mcp server config:
   ai:
    mcp:
      server:
@@ -28,9 +28,17 @@ spring:
        name: pulse-server
        version: 1.0.0
 
-# --> web config
+# --> web config:
   main:
-    web-application-type: none
+    web-application-type: servlet
     banner-mode: off
+
+# --> actuator config:
+management:
+  endpoints:
+    web:
+      exposure:
+        include=*:
+
 
 kind: Application
