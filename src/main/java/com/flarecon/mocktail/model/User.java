@@ -1,6 +1,6 @@
 package com.flarecon.mocktail.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.flarecon.mocktail.dto.user.UserCreateRequest;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -10,7 +10,7 @@ import java.io.Serializable;
 public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public long id;
+    public Long id;
 
     @Column(nullable = false)
     public String name;
@@ -18,9 +18,28 @@ public class User implements Serializable {
     @Column(nullable = false, unique = true)
     public String username;
 
-    @JsonIgnore
     @Column(nullable = false)
     public String password;
 
     public String roles = "viewer";
+
+
+    // constructors
+    public User(UserCreateRequest request) {
+        this.name = request.getName();
+        this.username = request.getUsername();
+        this.password = request.getPassword();
+    }
+
+
+    // overrides
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        else if (!(o instanceof User)) return false;
+        else return id != null && id.equals(((User) o).id);
+    }
+
+    @Override
+    public int hashCode() {return getClass().hashCode();}
 }
