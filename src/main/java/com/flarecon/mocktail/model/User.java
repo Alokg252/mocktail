@@ -2,10 +2,12 @@ package com.flarecon.mocktail.model;
 
 import com.flarecon.mocktail.dto.user.UserCreateRequest;
 import jakarta.persistence.*;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
 @Entity
+@NoArgsConstructor
 @Table(name = "users")
 public class User implements Serializable {
     @Id
