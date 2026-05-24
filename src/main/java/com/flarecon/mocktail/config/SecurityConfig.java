@@ -2,6 +2,7 @@ package com.flarecon.mocktail.config;
 
 import com.flarecon.mocktail.Constants;
 import com.flarecon.mocktail.security.ApiKeyFilter;
+import com.flarecon.mocktail.security.RateLimiter;
 import com.flarecon.mocktail.service.ApiKeyService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
@@ -14,8 +15,9 @@ import org.springframework.context.annotation.Configuration;
 public class SecurityConfig {
 
     @Bean
-    public FilterRegistrationBean<ApiKeyFilter> apiKeyFilterRegistration(ApiKeyService apiKeyService) {
-        FilterRegistrationBean<ApiKeyFilter> reg = new FilterRegistrationBean<>(new ApiKeyFilter(apiKeyService));
+    public FilterRegistrationBean<ApiKeyFilter> apiKeyFilterRegistration(ApiKeyService apiKeyService,
+                                                                         RateLimiter rateLimiter) {
+        FilterRegistrationBean<ApiKeyFilter> reg = new FilterRegistrationBean<>(new ApiKeyFilter(apiKeyService, rateLimiter));
         reg.addUrlPatterns("/mcp/*", "/admin/*");
         reg.setOrder(1);
         return reg;

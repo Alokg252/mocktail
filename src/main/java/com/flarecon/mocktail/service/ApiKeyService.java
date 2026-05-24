@@ -13,6 +13,7 @@ import java.security.SecureRandom;
 import java.time.LocalDateTime;
 import java.util.Base64;
 import java.util.HexFormat;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -37,6 +38,13 @@ public class ApiKeyService {
                 now.plusMonths(TTL_MONTHS)
         ));
         return new IssuedKey(raw, saved);
+    }
+
+    @Transactional(readOnly = true)
+    public Optional<ApiKey> resolve(String rawKey) {
+        if (rawKey == null || rawKey.isBlank()) return Optional.empty();
+        return repository.findByKeyHash(hash(rawKey))
+                .filter(k -> k.isUsable(LocalDateTime.now()));
     }
 
     @Transactional(readOnly = true)
