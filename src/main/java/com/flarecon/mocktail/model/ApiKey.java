@@ -37,7 +37,7 @@ public class ApiKey implements Serializable {
     @Column(nullable = false)
     boolean revoked = false;
 
-    public ApiKey(String keyHash, String name, String label, LocalDateTime createdAt, LocalDateTime expiresAt) {
+    public ApiKey(String keyHash, String label, String name, LocalDateTime createdAt, LocalDateTime expiresAt) {
         this.keyHash = keyHash;
         this.label = label;
         this.name = name;
