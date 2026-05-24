@@ -7,7 +7,6 @@ spring:
   application:
     name: mocktail
 
-
 # --> hibernate config:
   jpa:
     hibernate:
@@ -25,8 +24,12 @@ spring:
    mcp:
      server:
        type: sync
-       name: pulse-server
+       name: mocktail
        version: 1.0.0
+       protocol: streamable
+       streamable-http:
+         mcp-endpoint: /mcp
+         disallow-delete: true
 
 # --> web config:
   main:
