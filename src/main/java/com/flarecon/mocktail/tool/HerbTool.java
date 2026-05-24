@@ -5,6 +5,7 @@ import com.flarecon.mocktail.model.Herb;
 import com.flarecon.mocktail.service.HerbService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.ai.tool.annotation.Tool;
+import org.springframework.ai.tool.annotation.ToolParam;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,7 +27,10 @@ public class HerbTool {
     }
 
     @Tool(description = "search herbs by any single usage")
-    public List<Herb> searchHerbsByUsage(String usage) {
+    public List<Herb> searchHerbsByUsage(
+            @ToolParam(description = "any single usage of herb")
+            String usage
+    ) {
         return herbService.searchHerbsByUsage(usage);
     }
 
